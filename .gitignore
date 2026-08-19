@@ -1,0 +1,32 @@
+node_modules/
+outputs/
+
+.env
+*.env
+
+__pycache__/
+*.pyc
+
+*.log
+
+# 依赖和输出
+node_modules/
+outputs/
+
+# 本地配置
+.env
+*.env
+
+# 缓存
+__pycache__/
+*.pyc
+*.log
+
+# 广告分析运行结果
+广告优化/reports/
+
+# 月会/周会生成的报告
+月会&周会数据模板/*.html
+
+# Claude临时进度
+claude-memory/*progress*.md

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inspiroy 2 系列 7月 vs 6月 环比分析报告</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0f172a; --card-bg: #1e293b; --text: #e2e8f0; --text-secondary: #94a3b8;
+  --accent: #38bdf8; --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+  --border: #334155; --accent2: #a78bfa;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 24px; }
+h1 { font-size: 1.8em; margin-bottom: 8px; }
+h2 { font-size: 1.3em; color: var(--accent); margin: 32px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+h3 { font-size: 1.1em; margin: 20px 0 12px; color: var(--accent2); }
+.meta { color: var(--text-secondary); font-size: 0.85em; margin-bottom: 24px; }
+.meta span { display: inline-block; margin-right: 24px; }
+.grid { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-5 { grid-template-columns: repeat(5, 1fr); }
+@media (max-width: 900px) { .grid-2, .grid-4, .grid-5 { grid-template-columns: 1fr; } }
+.card { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border); }
+.stat-label { font-size: 0.8em; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-value { font-size: 1.6em; font-weight: 700; margin: 4px 0; }
+.stat-change { font-size: 0.85em; }
+.up { color: var(--green); }
+.down { color: var(--red); }
+.warn { color: var(--yellow); }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--border); }
+th { color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.75em; letter-spacing: 0.5px; }
+td:first-child, th:first-child { text-align: left; }
+tr:hover { background: rgba(255,255,255,0.03); }
+.chart-wrap { position: relative; height: 280px; margin: 12px 0; }
+canvas { width: 100% !important; }
+.answer-box { background: var(--card-bg); border-left: 3px solid var(--accent); padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+.answer-box h4 { color: var(--accent); margin-bottom: 8px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75em; font-weight: 600; }
+.badge-green { background: rgba(74,222,128,0.2); color: var(--green); }
+.badge-red { background: rgba(248,113,113,0.2); color: var(--red); }
+.badge-yellow { background: rgba(251,191,36,0.2); color: var(--yellow); }
+.action-table td:first-child { font-weight: 600; }
+.summary-highlight { font-size: 1.1em; padding: 12px 16px; background: rgba(56,189,248,0.1); border-radius: 8px; margin: 12px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+</style>
+</head>
+<body>
+
+<h1>🎨 Inspiroy 2 系列（H951P / H641P）环比分析报告</h1>
+
+<div class="meta">
+  <span>📅 分析时区：美国西部时间 (PT)</span>
+  <span>📊 本期：2026/07/01 — 2026/07/21（21天）</span>
+  <span>📊 对比期：2026/06/01 — 2026/06/21（21天）</span>
+  <span>✅ 数据完整性：7/21数据已完整更新</span>
+  <span>🔄 本次仅进行固定周期环比分析，不进行同比分析</span>
+  <span>📌 数据来源：领星 MCP + SIF MCP</span>
+</div>
+
+<div class="summary-highlight">
+  <strong>🔑 核心发现：</strong>Inspiroy 2 系列 7月前21天销量 <span class="up"><strong>增长 +34.7%</strong></span>（869 vs 645），而非下降。全系列四个型号中三个增长，仅 H951P-Green 微降。增长来自 Sessions（+17.8%）和 CVR（+10.7%）双重驱动。广告加大投入（花费+34.3%），ACOS 稳定在 15.2%，ROAS 改善至 6.57。核心关键词 "drawing tablet""huion" 等搜索需求处于结构性下滑中，距旺季（Q4 holiday）仍有 16 周窗口。
+</div>
+
+<!-- ====== Q1: 销量整体变化 ====== -->
+<h2>一、整体销量：增长而非下降</h2>
+
+<div class="grid grid-4">
+  <div class="card">
+    <div class="stat-label">本期总销量 (7月)</div>
+    <div class="stat-value">869</div>
+    <div class="stat-change">订单 828 件</div>
+  </div>
+  <div class="card">
+    <div class="stat-label">对比期总销量 (6月)</div>
+    <div class="stat-value">645</div>
+    <div class="stat-change">订单 634 件</div>
+  </div>
+  <div class="card">
+    <div class="stat-label">销量环比变化</div>
+    <div class="stat-value up">+34.7%</div>
+    <div class="stat-change">+224 件</div>
+  </div>
+  <div class="card">
+    <div class="stat-label">销售额环比变化</div>
+    <div class="stat-value up">+29.6%</div>
+    <div class="stat-change">$151,993 → $196,984</div>
+  </div>
+</div>
+
+<div class="chart-wrap"><canvas id="chartSales"></canvas></div>
+
+<div class="answer-box">
+  <h4>📌 Q1 回答：Inspiroy 2 系列销量并未下降，而是增长 +34.7%</h4>
+  <p>7月前21天（7/1-7/21）总销量 <strong>869 件</strong>，对比6月前21天（6/1-6/21）<strong>645 件</strong>，增加 <strong>224 件（+34.7%）</strong>。</p>
+  <p>总销售额从 $151,993 增长至 $196,984（<strong>+29.6%</strong>）。</p>
+</div>
+
+<!-- ====== Q2: 各型号分解 ====== -->
+<h2>二、各型号与颜色分解</h2>
+
+<div class="grid grid-2">
+  <div class="card">
+    <h3>H951P-Black（星空黑）🖤</h3>
+    <div class="stat-value up">+32.5%</div>
+    <div class="stat-change">391 → 518 件 | Sessions: 7,799 → 8,930 (+14.5%) | CVR: 4.87% → 5.36%</div>
+    <p style="margin-top:8px;font-size:0.85em;color:var(--text-secondary)">广告主力型号，贡献系列 59.6% 销量。广告订单 387 件（vs 307），自然订单 92 件（vs 73）</p>
+  </div>
+  <div class="card">
+    <h3>H641P-Pink（灰樱粉）💗</h3>
+    <div class="stat-value up">+43.1%</div>
+    <div class="stat-change">123 → 176 件 | Sessions: 1,484 → 1,890 (+27.4%) | CVR: 8.29% → 9.31%</div>
+    <p style="margin-top:8px;font-size:0.85em;color:var(--text-secondary)">自然流量为主（88%自然订单），CVR 系列最高。广告订单 21 件（vs 14），自然订单 155 件（vs 109）</p>
+  </div>
+  <div class="card">
+    <h3>H641P-Black（黑色）🖤</h3>
+    <div class="stat-value up">+44.0%</div>
+    <div class="stat-change">109 → 157 件 | Sessions: 2,587 → 3,201 (+23.7%) | CVR: 4.21% → 4.84%</div>
+    <p style="margin-top:8px;font-size:0.85em;color:var(--text-secondary)">增长最快型号。广告订单 64 件（vs 30），自然订单 91 件（vs 79）。利润率 25.6% 为系列最高</p>
+  </div>
+  <div class="card" style="border-color: var(--red);">
+    <h3>H951P-Green（雾松绿）💚</h3>
+    <div class="stat-value down">-18.2%</div>
+    <div class="stat-change">22 → 18 件 | Sessions: 78 → 51 (-34.6%) | CVR: 28.2% → 35.3%</div>
+    <p style="margin-top:8px;font-size:0.85em;color:var(--text-secondary)">唯一下降型号。Session 大幅下降（-34.6%），但 CVR 反而提升。无广告投放，全部自然订单。体量小，对系列整体影响有限</p>
+  </div>
+</div>
+
+<div class="chart-wrap"><canvas id="chartByModel"></canvas></div>
+
+<div class="answer-box">
+  <h4>📌 Q2 回答：H951P-Green 下降最多（-18.2%），其余全部增长</h4>
+  <p>H641P-Black（+44.0%）和 H641P-Pink（+43.1%）增长最快，H951P-Black（+32.5%）稳健增长。仅 H951P-Green 下降，但体量极小（18 vs 22），对系列整体几乎无影响。</p>
+</div>
+
+<!-- ====== Q3 & Q4: Sessions vs CVR，自然 vs 广告 ====== -->
+<h2>三、Sessions vs CVR 分解 & 自然/广告订单</h2>
+
+<div class="grid grid-4">
+  <div class="card">
+    <div class="stat-label">Sessions 变化</div>
+    <div class="stat-value up">+17.8%</div>
+    <div class="stat-change">11,948 → 14,072</div>
+  </div>
+  <div class="card">
+    <div class="stat-label">CVR 变化</div>
+    <div class="stat-value up">+10.7%</div>
+    <div class="stat-change">5.31% → 5.88%</div>
+  </div>
+  <div class="card">
+    <div class="stat-label">自然订单变化</div>
+    <div class="stat-value up">+25.8%</div>
+    <div class="stat-change">283 → 356 件</div>
+  </div>
+  <div class="card">
+    <div class="stat-label">广告订单变化</div>
+    <div class="stat-value up">+34.5%</div>
+    <div class="stat-change">351 → 472 件</div>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr><th>型号</th><th>6月 Sessions</th><th>7月 Sessions</th><th>变化</th><th>6月 CVR</th><th>7月 CVR</th><th>变化</th><th>6月自然订单</th><th>7月自然订单</th><th>6月广告订单</th><th>7月广告订单</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>H951P-Black</td><td>7,799</td><td>8,930</td><td class="up">+14.5%</td><td>4.87%</td><td>5.36%</td><td class="up">+10.1%</td><td>73</td><td>92</td><td>307</td><td>387</td></tr>
+    <tr><td>H641P-Pink</td><td>1,484</td><td>1,890</td><td class="up">+27.4%</td><td>8.29%</td><td>9.31%</td><td class="up">+12.3%</td><td>109</td><td>155</td><td>14</td><td>21</td></tr>
+    <tr><td>H641P-Black</td><td>2,587</td><td>3,201</td><td class="up">+23.7%</td><td>4.21%</td><td>4.84%</td><td class="up">+15.0%</td><td>79</td><td>91</td><td>30</td><td>64</td></tr>
+    <tr><td>H951P-Green</td><td>78</td><td>51</td><td class="down">-34.6%</td><td>28.2%</td><td>35.3%</td><td class="up">+25.2%</td><td>22</td><td>18</td><td>0</td><td>0</td></tr>
+  </tbody>
+</table>
+
+<div class="answer-box">
+  <h4>📌 Q3 回答：增长来自 Sessions 和 CVR 双驱动</h4>
+  <p>Sessions +17.8%（+2,124）和 CVR +10.7%（5.31%→5.88%）<strong>共同推动</strong>销量增长。按贡献拆分：Sessions 增长贡献约 62%，CVR 提升贡献约 38%。</p>
+  <h4 style="margin-top:12px;">📌 Q4 回答：自然和广告订单均增长，广告拉动更强</h4>
+  <p>自然订单 +25.8%（283→356），广告订单 +34.5%（351→472）。广告订单占比从 55.4% 提升至 57.1%，广告投入加大的效果明显。H641P-Pink 仍以自然订单为主（88%），H951P-Black 广告依赖度最高（81%广告订单）。</p>
+</div>
+
+<!-- ====== Q5: 广告数据 ====== -->
+<h2>四、广告曝光、点击、花费与转化</h2>
+
+<div class="grid grid-5">
+  <div class="card"><div class="stat-label">广告曝光</div><div class="stat-value up">+61.1%</div><div class="stat-change">679K → 1,094K</div></div>
+  <div class="card"><div class="stat-label">广告点击</div><div class="stat-value up">+35.8%</div><div class="stat-change">4,980 → 6,765</div></div>
+  <div class="card"><div class="stat-label">广告花费</div><div class="stat-value up">+34.3%</div><div class="stat-change">$10,666 → $14,321</div></div>
+  <div class="card"><div class="stat-label">CTR</div><div class="stat-value down">-16.3%</div><div class="stat-change">0.73% → 0.62%</div></div>
+  <div class="card"><div class="stat-label">CPC</div><div class="stat-value up">-2.3%</div><div class="stat-change">$2.14 → $2.12</div></div>
+</div>
+
+<div class="grid grid-4">
+  <div class="card"><div class="stat-label">广告销售额</div><div class="stat-value up">+33.4%</div><div class="stat-change">$70,187 → $97,570</div></div>
+  <div class="card"><div class="stat-label">ACOS</div><div class="stat-value up">-2.7%</div><div class="stat-change">15.63% → 15.21%</div></div>
+  <div class="card"><div class="stat-label">ROAS</div><div class="stat-value up">+2.7%</div><div class="stat-change">6.40 → 6.57</div></div>
+  <div class="card"><div class="stat-label">广告订单</div><div class="stat-value up">+34.5%</div><div class="stat-change">351 → 472</div></div>
+</div>
+
+<p style="font-size:0.85em;color:var(--text-secondary);margin-top:8px;">* 广告汇总口径：H951P-Black + H641P-Pink（仅这两款有广告投放，按 ad-data-aggregation-rules 汇总）</p>
+
+<div class="chart-wrap"><canvas id="chartAdMetrics"></canvas></div>
+
+<div class="answer-box">
+  <h4>📌 Q5 回答：广告投入加大，效率保持稳定</h4>
+  <p><strong>曝光大幅扩展（+61.1%）</strong>是最大的变化，说明广告活动覆盖了更多关键词和投放位置。<strong>CTR 下降（0.73%→0.62%，-16.3%）</strong>说明新增曝光的相关性可能不如核心词精准，存在一定浪费。</p>
+  <p>好消息是 <strong>CPC 微降（$2.14→$2.12）</strong>且 <strong>ACOS 保持稳定（15.2%）</strong>，ROAS 甚至略有改善（6.40→6.57）。整体广告效率没有因扩量而恶化。关键风险：CTR 下降如果持续，可能影响广告质量分和长期 CPC。</p>
+</div>
+
+<!-- ====== Q6 & Q7: SIF 关键词需求与排名 ====== -->
+<h2>五、SIF 核心关键词需求与排名分析</h2>
+
+<h3>5.1 H951P-Black 关键词信号（2026年7月）</h3>
+<table>
+  <thead><tr><th>关键词</th><th>流量份额</th><th>贡献变化</th><th>自然排名</th><th>SP排名</th><th>健康状态</th><th>排名演变</th></tr></thead>
+  <tbody>
+    <tr><td>drawing tablet</td><td>29.4%</td><td class="down">-0.48 ⚠️ 严重</td><td>P1#9/16</td><td>P1#6/6</td><td><span class="badge badge-yellow">volatile</span></td><td>gap_detected</td></tr>
+    <tr><td>huion drawing tablet</td><td>8.7%</td><td class="down">-0.10 ⚠️ 严重</td><td>P1#1/16</td><td>P1#1/6</td><td><span class="badge badge-red">at_risk</span></td><td>gap_detected</td></tr>
+    <tr><td>drawing tablet with screen</td><td>8.1%</td><td class="up">+0.03 ✅</td><td>P1#3/16</td><td>P1#5/6</td><td><span class="badge badge-yellow">volatile</span></td><td>gap_detected</td></tr>
+    <tr><td>huion</td><td>6.6%</td><td class="down">-0.07 ⚠️</td><td>P1#1/16</td><td>P1#1/6</td><td><span class="badge badge-red">at_risk</span></td><td>gap_detected</td></tr>
+    <tr><td>huion kamvas 13</td><td>3.3%</td><td class="down">-0.01</td><td>P1#1/16</td><td>P1#1/6</td><td><span class="badge badge-green">standard</span></td><td>gap_detected</td></tr>
+  </tbody>
+</table>
+
+<h3>5.2 核心关键词搜索需求趋势</h3>
+<table>
+  <thead><tr><th>关键词</th><th>月搜索量</th><th>YoY变化</th><th>趋势</th><th>季节性</th><th>距旺季</th><th>诊断</th></tr></thead>
+  <tbody>
+    <tr><td>drawing tablet</td><td>~143K</td><td class="down">-40%</td><td>平稳/近期走弱</td><td>高（11-12月峰值）</td><td>16周</td><td>recent_weakening</td></tr>
+    <tr><td>huion drawing tablet</td><td>~15K</td><td class="down">-36%</td><td>平稳/近期走弱</td><td>高（11-12月峰值）</td><td>16周</td><td>recent_weakening</td></tr>
+    <tr><td>drawing tablet with screen</td><td>~17K</td><td class="down">-23%</td><td>平稳/近期走弱</td><td>高（11-12月峰值）</td><td>16周</td><td>recent_weakening</td></tr>
+    <tr><td>huion</td><td>~11K</td><td class="down">-32%</td><td class="down">结构性下滑</td><td>高（11月峰值）</td><td>16周</td><td>structural_declining</td></tr>
+    <tr><td>art tablet</td><td>~7K</td><td class="down">-32%</td><td class="down">结构性下滑</td><td>高（11-12月峰值）</td><td>16周</td><td>structural_declining</td></tr>
+  </tbody>
+</table>
+
+<div class="answer-box">
+  <h4>📌 Q6 回答：核心关键词搜索需求处于下滑通道，但属季节性+结构性叠加</h4>
+  <p><strong>"drawing tablet"</strong>（最大流量词，占H951P-Black 29.4%流量份额）近期贡献变化 -0.48（严重下滑），但该词搜索量本身没有断崖下跌——ABA周搜索量在 33,000-36,000 之间波动。问题在于<strong>本品在该词上的流量份额被竞品蚕食</strong>。</p>
+  <p><strong>"huion"</strong> 品牌词处于 <strong>结构性下滑</strong>（年均-22%），这是品牌搜索需求长期萎缩的信号，与本品表现无关。</p>
+  <p><strong>"huion drawing tablet"</strong>（品牌+品类词）贡献 -0.10（严重），但自然排名仍维持 P1#1，说明品类内竞争加剧，本品虽排第一但点击份额在被其他竞品分流。</p>
+  <p>所有核心关键词距离 Q4 旺季（11-12月）还有约 <strong>16 周</strong>，当前处于季节性上升期起点，是布局自然排名的窗口。</p>
+</div>
+
+<div class="answer-box">
+  <h4>📌 Q7 回答：本品自然排名和广告排名总体稳定，但排名断档严重</h4>
+  <p>H951P-Black 在品牌词（huion, huion drawing tablet, huion kamvas 13）上维持 P1#1 自然排名和 SP P1#1——<strong>品牌防守坚固</strong>。</p>
+  <p>但 <strong>所有关键词均标记为 "gap_detected"（排名断档）</strong>——说明本品在自然排名某位置（如 P1#3）和下一页（P2#1+）之间存在较大的曝光落差。一旦排名波动掉出首页首屏，流量会骤降。</p>
+  <p>"drawing tablet" 大词上自然排名 P1#9，不在首屏最佳位置，依赖 SP 广告（P1#6）维持曝光。</p>
+  <p>相比6月，7月 SIF 流量趋势显示 H951P-Black 整体流量 score 从 ~47K 升至 ~59-70K（7月前几周），说明 <strong>实际流量在增长</strong>，尽管个别关键词份额被稀释。</p>
+</div>
+
+<!-- ====== Q8: 竞品分析 ====== -->
+<h2>六、竞品分析</h2>
+
+<h3>6.1 "drawing tablet" 关键词 Top 竞品格局</h3>
+<table>
+  <thead><tr><th>排名</th><th>ASIN</th><th>品牌/型号</th><th>价格</th><th>评分</th><th>评论数</th><th>月销量</th><th>流量份额</th><th>竞争模式</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>B07HQDN7W6</td><td>Wacom Intuos (2018)</td><td>$39.99</td><td>4.4★</td><td>17,741</td><td>300+</td><td>27.8%</td><td>广告主导</td></tr>
+    <tr><td>2</td><td>B01FTE9HS2</td><td>Huion H1060P（本品）</td><td>$41.99</td><td>4.4★</td><td>7,198</td><td>500+</td><td>20.8%</td><td>广告主导</td></tr>
+    <tr><td>3</td><td>B079HL9YSF</td><td>Wacom Intuos (Small)</td><td>$39.95</td><td>4.6★</td><td>23,840</td><td>3,000+</td><td>17.2%</td><td>自然主导</td></tr>
+    <tr><td>4</td><td>B075T6MTJX</td><td>Huion H640P</td><td>$29.99</td><td>4.4★</td><td>14,284</td><td>2,000+</td><td>16.3%</td><td>混合</td></tr>
+    <tr><td>5</td><td>B077P6BQP7</td><td>XP-Pen Deco 01 V3</td><td>$44.99</td><td>4.5★</td><td>14,410</td><td>2,000+</td><td>10.5%</td><td>自然主导</td></tr>
+    <tr style="background:rgba(56,189,248,0.08)"><td>—</td><td>B0D813G71Q</td><td>Huion H951P-Black（本品）</td><td>$67.99</td><td>4.5★</td><td>—</td><td>—</td><td>未入Top20</td><td>opportunity</td></tr>
+  </tbody>
+</table>
+
+<div class="answer-box">
+  <h4>📌 Q8 回答：竞品未出现明显的价格战或促销抢量，但 H951P 在"drawing tablet"大词上缺位</h4>
+  <p><strong>H951P-Black（$67.99）在"drawing tablet"大词上未进入 Top 20</strong>，而我们的 H1060P（$41.99，B01FTE9HS2）排第 2 位（20.8%流量份额）。这说明：</p>
+  <ol>
+    <li><strong>H951P 定价在"drawing tablet"品类中偏高</strong>——Top 竞品集中在 $29.99-$44.99 区间，$67.99 的 H951P 在价格敏感的大品类词上缺乏竞争力。</li>
+    <li>H951P 的流量更多来自 <strong>品牌词和长尾精准词</strong>（huion drawing tablet, huion kamvas 13 等），转化率高但流量池有限。</li>
+    <li>Wacom Intuos（B079HL9YSF，#3，$39.95，23,840评论）靠自然流量占据 17.2% 份额——这是最危险的竞品，因为其自然排名壁垒极高。</li>
+    <li>XP-Pen Deco 01 V3（B077P6BQP7，#5，$44.99）以自然流量为主，份额 10.5%。</li>
+  </ol>
+  <p><strong>没有发现竞品在7月期间通过大幅降价或新增促销抢夺流量</strong>。主要竞品（Wacom, XP-Pen）在6-7月价格策略相对稳定。</p>
+</div>
+
+<!-- ====== Q9: 流量转移 ====== -->
+<h2>七、H951P / H641P 及颜色间流量转移分析</h2>
+
+<div class="grid grid-2">
+  <div class="card">
+    <h3>7月 vs 6月 各型号销量占比变化</h3>
+    <div class="chart-wrap"><canvas id="chartShare"></canvas></div>
+  </div>
+  <div class="card">
+    <h3>7月 vs 6月 Sessions 占比变化</h3>
+    <div class="chart-wrap"><canvas id="chartSessionsShare"></canvas></div>
+  </div>
+</div>
+
+<table>
+  <thead><tr><th>型号</th><th>6月销量</th><th>6月占比</th><th>7月销量</th><th>7月占比</th><th>占比变化</th><th>6月Sessions</th><th>7月Sessions</th><th>Sessions占比变化</th></tr></thead>
+  <tbody>
+    <tr><td>H951P-Black</td><td>391</td><td>60.6%</td><td>518</td><td>59.6%</td><td class="down">-1.0pp</td><td>7,799</td><td>8,930</td><td class="down">-1.8pp</td></tr>
+    <tr><td>H641P-Pink</td><td>123</td><td>19.1%</td><td>176</td><td>20.3%</td><td class="up">+1.2pp</td><td>1,484</td><td>1,890</td><td class="up">+1.0pp</td></tr>
+    <tr><td>H641P-Black</td><td>109</td><td>16.9%</td><td>157</td><td>18.1%</td><td class="up">+1.2pp</td><td>2,587</td><td>3,201</td><td class="up">+1.1pp</td></tr>
+    <tr><td>H951P-Green</td><td>22</td><td>3.4%</td><td>18</td><td>2.1%</td><td class="down">-1.3pp</td><td>78</td><td>51</td><td class="down">-0.3pp</td></tr>
+  </tbody>
+</table>
+
+<div class="answer-box">
+  <h4>📌 Q9 回答：存在微弱的从 H951P 向 H641P 的流量转移趋势</h4>
+  <p><strong>H951P-Black 的 Sessions 占比从 65.3% 降至 63.5%（-1.8pp）</strong>，而 <strong>H641P-Black（+1.1pp）和 H641P-Pink（+1.0pp）</strong>占比同时提升。H951P-Green 占比也下降（-0.3pp）。</p>
+  <p>说明系列内部存在 <strong>从 H951P 向 H641P 的轻微流量转移</strong>：</p>
+  <ol>
+    <li>H641P 价格更低（$42.99 vs $67.99），对价格敏感型买家更有吸引力</li>
+    <li>H641P-Pink 的 CVR 最高（9.3%），产品页转化效率远超 H951P-Black（5.4%）</li>
+    <li>H641P-Black 增长最快（+44%），可能从 H951P-Black 的 Listing 页面交叉流量中获益</li>
+    <li>H951P-Green 的 Sessions 下降（-34.6%）可能来自 Green 变体在搜索结果中的曝光减少，而非被其他颜色直接抢夺——因为 Green 本身 Sessions 基数极小</li>
+  </ol>
+  <p>总体而言，流量转移幅度不大，系列内部变体之间更多是<strong>互补而非零和博弈</strong>。</p>
+</div>
+
+<!-- ====== Q10: 行动建议 ====== -->
+<h2>八、立即执行建议</h2>
+
+<div class="summary-highlight">
+  <strong>🎯 总体判断：</strong>Inspiroy 2 系列 7月表现优于6月，销量增长由加大广告投入驱动（广告订单 +34.5%），自然流量也在增长（+25.8%）。核心风险在于品类大词 "drawing tablet" 上 H951P 缺位、品牌词 "huion" 处于结构性下滑、以及 CTR 下降趋势。距 Q4 旺季还有 16 周，是调整策略的最佳窗口。
+</div>
+
+<table class="action-table">
+  <thead><tr><th>优先级</th><th>领域</th><th>问题</th><th>数据依据</th><th>建议动作</th><th>复查指标</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><span class="badge badge-red">🔴 P0</span></td>
+      <td>广告</td>
+      <td>CTR 下降 16.3%——扩量效率下降</td>
+      <td>CTR: 0.73%→0.62%，同时 Impressions +61.1%</td>
+      <td><strong>审查新增投放的搜索词报告</strong>，暂停高花费0转化的词；将预算集中在 CTR>0.5% 的关键词上；测试新的广告创意/主图提升 CTR</td>
+      <td>CTR 恢复到 >0.7%</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-red">🔴 P0</span></td>
+      <td>关键词</td>
+      <td>"drawing tablet" 大词上 H951P 无排名——品类最大流量池缺位</td>
+      <td>SIF: H951P-Black 未进入该词 Top 20，该词月搜索量 143K</td>
+      <td><strong>为 H951P 单独开设 "drawing tablet" 的 SP 广告活动</strong>，测试竞价和 Listing 相关性；优化 H951P 的标题和 Search Terms 包含 "drawing tablet"</td>
+      <td>4周内进入 "drawing tablet" SP Top 10</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-yellow">🟡 P1</span></td>
+      <td>广告</td>
+      <td>H641P-Black 广告投入增长潜力大</td>
+      <td>ACOS 仅 12.0%（系列最低），ROAS 8.33，但广告订单仅 64 件</td>
+      <td><strong>适度增加 H641P-Black 广告预算</strong>（当前月花费 ~$1,960，可增至 $3,000），复制 H641P-Pink 的广告策略</td>
+      <td>H641P-Black 广告订单 +50%</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-yellow">🟡 P1</span></td>
+      <td>关键词</td>
+      <td>"huion" 品牌词结构性下滑（年均-22%）</td>
+      <td>SIF demand: structural_declining, 搜索量从 2021 峰值腰斩</td>
+      <td><strong>逐步减少对 "huion" 品牌词的依赖</strong>，加大品类词和竞品词的广告覆盖；拓展 "drawing pad""pen tablet""graphic tablet" 等替代品类词</td>
+      <td>非品牌词流量占比提升 5pp</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-yellow">🟡 P1</span></td>
+      <td>价格</td>
+      <td>H951P（$67.99）在品类词上价格竞争力弱</td>
+      <td>"drawing tablet" Top 5 竞品 $29.99-$44.99，H951P 高 50%+</td>
+      <td>考虑在非 Deal 期间对 H951P 设置 5%-10% Coupon；或在 SP 广告中突出 "large 10x6 inch" 的尺寸优势来 justify 溢价</td>
+      <td>CVR 维持 >5%</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-green">🟢 P2</span></td>
+      <td>Listing</td>
+      <td>H951P-Green Sessions 持续下降</td>
+      <td>Sessions: 78→51 (-34.6%)，但 CVR 提升至 35.3%</td>
+      <td>检查 H951P-Green 变体在父 ASIN 下是否正确展示；确保 Green 颜色图在搜索结果中可见；考虑合并到 H951P-Black 的广告活动中</td>
+      <td>Sessions 回升至 >70</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-green">🟢 P2</span></td>
+      <td>促销</td>
+      <td>7月下旬 H951P-Black 回到 $67.99（PED），无 Deal 标</td>
+      <td>7/16-7/26: PED $67.99，对比6月 RERUN DEAL $67.19</td>
+      <td>评估是否需要新的 Deal 活动来维持7月初的增长势头；关注8月竞品促销动态</td>
+      <td>销量趋势</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-green">🟢 P2</span></td>
+      <td>关键词</td>
+      <td>所有核心关键词距 Q4 旺季 16 周——布局窗口</td>
+      <td>SIF: weeks_to_peak=16 for all keywords</td>
+      <td><strong>8-9月集中养自然排名：</strong>在 "drawing tablet with screen""animation tablet""digital art tablet" 上加大 SP 精准投放，同步积累 Reviews，为旺季自然流量做准备</td>
+      <td>10月底复盘排名变化</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>附录：完整数据表</h2>
+
+<h3>A. 产品表现汇总（领星 MCP）</h3>
+<table>
+  <thead><tr><th>指标</th><th>H951P-Black<br>6月</th><th>H951P-Black<br>7月</th><th>H641P-Pink<br>6月</th><th>H641P-Pink<br>7月</th><th>H641P-Black<br>6月</th><th>H641P-Black<br>7月</th><th>H951P-Green<br>6月</th><th>H951P-Green<br>7月</th></tr></thead>
+  <tbody>
+    <tr><td>销量</td><td>391</td><td>518</td><td>123</td><td>176</td><td>109</td><td>157</td><td>22</td><td>18</td></tr>
+    <tr><td>销售额</td><td>$87,749</td><td>$110,030</td><td>$27,757</td><td>$37,764</td><td>$35,167</td><td>$48,206</td><td>$1,320</td><td>$984</td></tr>
+    <tr><td>Sessions</td><td>7,799</td><td>8,930</td><td>1,484</td><td>1,890</td><td>2,587</td><td>3,201</td><td>78</td><td>51</td></tr>
+    <tr><td>Page Views</td><td>12,793</td><td>15,270</td><td>2,045</td><td>2,599</td><td>3,588</td><td>4,526</td><td>109</td><td>70</td></tr>
+    <tr><td>CVR</td><td>4.87%</td><td>5.36%</td><td>8.29%</td><td>9.31%</td><td>4.21%</td><td>4.84%</td><td>28.2%</td><td>35.3%</td></tr>
+    <tr><td>自然订单</td><td>73</td><td>92</td><td>109</td><td>155</td><td>79</td><td>91</td><td>22</td><td>18</td></tr>
+    <tr><td>广告订单</td><td>307</td><td>387</td><td>14</td><td>21</td><td>30</td><td>64</td><td>0</td><td>0</td></tr>
+    <tr><td>广告花费</td><td>$9,334</td><td>$11,781</td><td>$292</td><td>$579</td><td>$1,029</td><td>$1,960</td><td>$11</td><td>$0</td></tr>
+    <tr><td>广告曝光</td><td>544,530</td><td>850,478</td><td>14,705</td><td>27,369</td><td>119,322</td><td>215,720</td><td>446</td><td>0</td></tr>
+    <tr><td>广告点击</td><td>4,323</td><td>5,641</td><td>131</td><td>223</td><td>520</td><td>901</td><td>6</td><td>0</td></tr>
+    <tr><td>广告销售额</td><td>$59,158</td><td>$77,425</td><td>$2,434</td><td>$3,819</td><td>$8,443</td><td>$16,326</td><td>$153</td><td>$0</td></tr>
+    <tr><td>ACOS</td><td>15.8%</td><td>15.2%</td><td>12.0%</td><td>15.2%</td><td>12.2%</td><td>12.0%</td><td>7.5%</td><td>N/A</td></tr>
+    <tr><td>ROAS</td><td>6.34</td><td>6.57</td><td>8.34</td><td>6.59</td><td>8.21</td><td>8.33</td><td>13.36</td><td>N/A</td></tr>
+    <tr><td>利润率</td><td>14.7%</td><td>6.6%</td><td>21.8%</td><td>17.0%</td><td>29.8%</td><td>25.6%</td><td>53.8%</td><td>51.9%</td></tr>
+    <tr><td>B2B订单</td><td>14</td><td>22</td><td>1</td><td>8</td><td>0</td><td>7</td><td>0</td><td>1</td></tr>
+    <tr><td>B2B金额</td><td>$5,466</td><td>$11,101</td><td>$229</td><td>$1,732</td><td>$0</td><td>$2,546</td><td>$0</td><td>$54</td></tr>
+  </tbody>
+</table>
+
+<h3>B. SIF 流量趋势——H951P-Black 周度数据</h3>
+<table>
+  <thead><tr><th>周起始</th><th>总流量分</th><th>自然分</th><th>广告分</th><th>SP分</th><th>SB分</th><th>SBV分</th></tr></thead>
+  <tbody>
+    <tr><td>2026-05-31</td><td>47,095</td><td>30,532</td><td>16,563</td><td>3,631</td><td>9,884</td><td>781</td></tr>
+    <tr><td>2026-06-07</td><td>49,469</td><td>27,312</td><td>22,157</td><td>5,708</td><td>12,082</td><td>1,400</td></tr>
+    <tr><td>2026-06-14</td><td>47,888</td><td>26,856</td><td>21,032</td><td>5,139</td><td>11,952</td><td>646</td></tr>
+    <tr style="background:rgba(74,222,128,0.05)"><td>2026-06-21</td><td>96,861 ⚡</td><td>57,678</td><td>39,183</td><td>11,370</td><td>16,447</td><td>3,500</td></tr>
+    <tr><td>2026-06-28</td><td>57,967</td><td>34,566</td><td>23,401</td><td>6,115</td><td>10,881</td><td>2,632</td></tr>
+    <tr><td>2026-07-05</td><td>59,259</td><td>36,951</td><td>22,308</td><td>3,607</td><td>11,930</td><td>2,020</td></tr>
+    <tr><td>2026-07-12</td><td>69,688</td><td>41,795</td><td>27,892</td><td>8,048</td><td>12,978</td><td>1,675</td></tr>
+    <tr><td>2026-07-19</td><td>26,802 ⚠️</td><td>15,356</td><td>11,447</td><td>2,814</td><td>6,002</td><td>452</td></tr>
+  </tbody>
+</table>
+<p style="font-size:0.8em;color:var(--text-secondary)">⚡ 6/21 周为 Prime Day 周（6/23-6/26），但对比期不含 PD。⚠️ 7/19 周数据可能未完整（截至7/21），需关注后续更新。</p>
+
+<h3>报告生成信息</h3>
+<p style="font-size:0.8em;color:var(--text-secondary)">
+  报告生成时间：2026-07-23 | 数据来源：领星 MCP（产品表现+广告） + SIF MCP（流量+关键词+竞品） |
+  分析周期：2026/07/01-07/21 vs 2026/06/01-06/21 | 时区：美国西部时间 (PT)
+</p>
+
+<script>
+// Chart.js dark theme defaults
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = '#334155';
+Chart.defaults.plugins.tooltip.backgroundColor = '#1e293b';
+Chart.defaults.plugins.tooltip.titleColor = '#e2e8f0';
+Chart.defaults.plugins.tooltip.bodyColor = '#e2e8f0';
+
+// Sales comparison bar chart
+new Chart(document.getElementById('chartSales'), {
+  type: 'bar',
+  data: {
+    labels: ['H951P-Black','H641P-Pink','H641P-Black','H951P-Green','系列合计'],
+    datasets: [
+      { label: '6月 (6/1-6/21)', data: [391,123,109,22,645], backgroundColor: '#475569' },
+      { label: '7月 (7/1-7/21)', data: [518,176,157,18,869], backgroundColor: '#38bdf8' }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e2e8f0' } } },
+    scales: { y: { beginAtZero: true, grid: { color: '#334155' } }, x: { grid: { display: false } } } }
+});
+
+// By model growth rates
+new Chart(document.getElementById('chartByModel'), {
+  type: 'bar',
+  data: {
+    labels: ['H951P-Black','H641P-Pink','H641P-Black','H951P-Green'],
+    datasets: [
+      { label: '销量环比', data: [32.5, 43.1, 44.0, -18.2], backgroundColor: ['#38bdf8','#38bdf8','#38bdf8','#f87171'] },
+      { label: 'Sessions环比', data: [14.5, 27.4, 23.7, -34.6], backgroundColor: ['#a78bfa','#a78bfa','#a78bfa','#f87171'] }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e2e8f0' } }, tooltip: { callbacks: { label: ctx => ctx.raw + '%' } } },
+    scales: { y: { grid: { color: '#334155' }, ticks: { callback: v => v+'%' } }, x: { grid: { display: false } } } }
+});
+
+// Ad metrics comparison
+new Chart(document.getElementById('chartAdMetrics'), {
+  type: 'bar',
+  data: {
+    labels: ['花费','广告销售额','ACOS','ROAS','CPC','CTR'],
+    datasets: [
+      { label: '6月', data: [10666,70187,15.63,6.40,2.14,0.73], backgroundColor: '#475569' },
+      { label: '7月', data: [14321,97570,15.21,6.57,2.12,0.62], backgroundColor: '#38bdf8' }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e2e8f0' } }, tooltip: { callbacks: { label: function(ctx) {
+    const labels = ['花费','广告销售额','ACOS','ROAS','CPC','CTR'];
+    const units = ['$','$','%','x','$','%'];
+    return labels[ctx.dataIndex] + ': ' + ctx.raw + units[ctx.dataIndex];
+  } } } }, scales: { y: { grid: { color: '#334155' } }, x: { grid: { display: false } } } }
+});
+
+// Volume share pie
+new Chart(document.getElementById('chartShare'), {
+  type: 'doughnut',
+  data: {
+    labels: ['H951P-Black','H641P-Pink','H641P-Black','H951P-Green'],
+    datasets: [
+      { label: '6月', data: [391,123,109,22], backgroundColor: ['#38bdf8','#f472b6','#94a3b8','#4ade80'], borderColor: '#0f172a' }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: '6月销量占比', color: '#e2e8f0' } } }
+});
+
+new Chart(document.getElementById('chartSessionsShare'), {
+  type: 'doughnut',
+  data: {
+    labels: ['H951P-Black','H641P-Pink','H641P-Black','H951P-Green'],
+    datasets: [
+      { label: '7月', data: [518,176,157,18], backgroundColor: ['#38bdf8','#f472b6','#94a3b8','#4ade80'], borderColor: '#0f172a' }
+    ]
+  },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: '7月销量占比', color: '#e2e8f0' } } }
+});
+</script>
+
+</body>
+</html>

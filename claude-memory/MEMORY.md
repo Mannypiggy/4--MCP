@@ -1,0 +1,13 @@
+- [领星MCP会议数据模板](lingsxing-mcp-meeting-templates.md) — 月会/周会固定数据范围、ASIN列表、重点型号分组、输出规格和可复用指令模板
+- [manny广告优化工作流](manny-ads-optimization-workflow.md) — 一键拉取广告数据、下钻关键词/搜索词、生成HTML优化报表的完整流程
+- [优先文件夹而非MCP](priority-folders-over-mcp.md) — 用户给出文件夹路径时，必须死磕打开项目，禁止跳过文件夹直接用MCP
+- [同比CVR对比要求](yoy-cvr-comparison-requirement.md) — 周会/月会同比必须增加Total CVR同比对比
+- [B2B销量销售额同环比](b2b-sales-yoy-mom-requirement.md) — 周会/月会必须增加B2B销量和B2B销售额的同比环比
+- [广告数据汇总规则](ad-data-aggregation-rules.md) — Kamvas 13 Gen 3系列和H951P/H641P系列广告必须汇总后同环比
+- [数据完整性规则](data-completeness-before-html.md) — 生成HTML前所有数据必须齐全，不得留占位文字
+- [竞品排名镜像规则](competitor-ranking-mirror-rule.md) — 竞品给出关键词排名时本品也必须对应给出
+- [竞品下架记录](competitor-delisting-b07l77gtty.md) — B07L77GTTY (Wacom Cintiq 16) 已下架，后续排除
+- [Huion官网价格更新](huion-price-update-workflow.md) — D:\CodexProjects\官网搜集价格 直接跑 generate_report.py，自动识别Flash Sale
+- [领星MCP限流规则](lingsxing-mcp-rate-limiting.md) — 串行调用、间隔≥2秒、遇429立即停止禁止重试
+- [阿七8月帖子整理进度](aqi-august-posts-progress.md) — 2026-08-04至11草稿已生成，待核对图4和内容细节
+- [manny型号ASIN对照表+竞品基准](manny-asin-mapping-and-competitor-benchmark.md) — manny/本店其他人/竞品XPPen的ASIN分组对照及同尺寸组对比结论
